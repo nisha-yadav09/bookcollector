@@ -22,10 +22,14 @@ def books_index(request):
 
 def books_detail(request, book_id):
   book = Book.objects.get(id=book_id)
+  id_list = book.libs.all().values_list('id')
+  # Now we can query for libs whose ids are not in the list using exclude
+  libs_book_doesnt_have = Book.objects.exclude(id__in=id_list)
   reader_form = ReaderForm()
   return render(request, 'books/detail.html', {
     'book': book,
-    'reader_form': reader_form
+    'reader_form': reader_form,
+    'libs': libs_book_doesnt_have
   })
 
 
