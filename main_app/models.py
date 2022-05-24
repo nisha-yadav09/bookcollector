@@ -10,26 +10,23 @@ LEVEL = (
   ('N', 'Novice'),
 )
 
-class Library(models.Model):
+class Lib(models.Model):
   name = models.CharField(max_length=50)
-  address = models.CharField(max_length=100)
-  # Library have a M:M related manager named
-  # book_set
 
   def __str__(self):
     return self.name
 
   def get_absolute_url(self):
-    return reverse('library_detail', kwargs={'pk': self.id})
-
+    return reverse('libs_detail', kwargs={'pk': self.id})
 
 class Book(models.Model):
+    # library = models.ManyToManyField(Library)
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
     description = models.TextField(max_length=1000)
     genre = models.CharField(max_length=100)
     read = models.CharField(max_length=100)
-    libs = models.ManyToManyField(Library)
+    libs = models.ManyToManyField(Lib)
 
     def __str__(self):
         return self.title

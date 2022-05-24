@@ -61,22 +61,21 @@
     {% endif %}
   </div>
   <!-- Available libs will come after this line -->
-</div>
 
 <div class="col s6">
   <h3>Available Libraries</h3>
-  {% if libs.count %}
-    {% for toy in toys.all %}
+  {% if liber.count %}
+    {% for lib in liber.all %}
       <div class="card">
         <div class="card-content">
           <span class="card-title">
-            <span>{{ lib.name }} - {{ lib.name }}</span> 
+            A <span>{{ lib.name }}</span> 
           </span>
         </div>
         <div class="card-action">
-          <form action="" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn">Add</button>
+          <form action="{% url 'assoc_lib' book.id lib.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
           </form>
         </div>
       </div>
@@ -85,7 +84,7 @@
     <h5>{{book.title}} Book is Stock!!</h5>
   {% endif %}
 </div>
-
+</div>
   <script>
     const dateEl = document.getElementById('id_date');
     M.Datepicker.init(dateEl, {
